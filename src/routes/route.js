@@ -141,5 +141,30 @@ router.get("/films/:filmId", function(req, res){
        }
        res.send("No movie exists with this id")
 })
+ 
+// *** 1)
+ router.get("/sol1", function (req, res) {
+    let arr= [1,2,3,4,5,7,8,9]
+    let missingNumber = (arr.length+1)*(arr.length+2)/2;
+    for(let i = 0; i < arr.length; i++) {
+    missingNumber = missingNumber - arr[i];
+}
+res.send(  { data: missingNumber  }  );
+});
+// *** 2)  
+  router.get("/sol2", function (req, res) {
+    let arr= [33, 34, 35, 37, 38, 39]
+    let len= arr.length
+    let total = 0;
+    for (let i in arr) {
+        total += arr[i];
+    }
+    let firstDigit= arr[0]
+    let lastDigit= arr.pop()
+    let consecutiveSum= (len + 1) * (firstDigit+ lastDigit ) / 2
+    let missingNumber= consecutiveSum - total
+   
+    res.send(  { data: missingNumber  }  );
+  });
 
 module.exports = router;
