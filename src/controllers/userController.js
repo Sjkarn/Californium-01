@@ -61,7 +61,7 @@ const getUserData = async function (req, res) {
   // Decoding requires the secret again. 
   // A token can only be decoded successfully if the same secret was used to create(sign) that token.
   // And because this token is only known to the server, it can be assumed that if a token is decoded at server then this token must have been issued by the same server in past.
-  let decodedToken = jwt.verify(token, "functionup-plutonium-very-very-secret-key");
+  let decodedToken = jwt.verify(token, "functionup-californium-very-very-secret-key");
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
 
@@ -92,7 +92,16 @@ const updateUser = async function (req, res) {
   res.send({ status: updatedUser, data: updatedUser });
 };
 
+const deleteUser = async function (req, res) {
+  let userId = req.params.userId;
+  let deleteUser = await userModel.findById(userId).select({isDeleted: 1, _id: 0});
+  if (deleteUser.isDeleted = true) return res.status(404).send({status: true, msg: "User has been deleted"});
+  console.log("This is the error:", err)
+  res.send({msg:"Error", error: err.message})
+}
+
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
+module.exports.deleteUser = deleteUser;
