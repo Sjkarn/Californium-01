@@ -1,12 +1,12 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const AuthorController = require("../controllers/authorController")
+const AuthorController = require("../controllers/authorController");
 const blogController = require("../controllers/blogController");
 const auth = require("../middleware/auth");
 
 //post api (author creation)
 
-router.post("/authors", AuthorController.createAuthor)
+router.post("/authors", AuthorController.createAuthor);
 
 // post api for Login aouthor >>>
 
@@ -20,18 +20,31 @@ router.post("/blogs", auth.authentication, blogController.createBlog);
 
 router.get("/blogs", auth.authentication, blogController.getBlogs);
 
-// put api (blog updation) 
+// put api (blog updation)
 
-router.put("/blogs/:blogId", auth.authentication, auth.authorization, blogController.updatedBlog);
+router.put(
+  "/blogs/:blogId",
+  auth.authentication,
+  auth.authorization,
+  blogController.updatedBlog
+);
 
 // delete api-1
 
-router.delete("/blogs/:blogId", auth.authentication, auth.authorization, blogController.deletedBlog);
+router.delete(
+  "/blogs/:blogId",
+  auth.authentication,
+  auth.authorization,
+  blogController.deletedBlog
+);
 
 //delete api-2
 
-router.delete("/blogs", auth.authentication, auth.authoriseByQuery, blogController.deleteByQueryParams)
+router.delete(
+  "/blogs",
+  auth.authentication,
+  auth.authoriseByQuery,
+  blogController.deleteByQueryParams
+);
 
-
-
-module.exports = router
+module.exports = router;
